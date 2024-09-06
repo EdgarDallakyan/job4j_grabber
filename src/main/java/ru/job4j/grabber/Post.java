@@ -1,6 +1,8 @@
 package ru.job4j.grabber;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
+
 public class Post {
     private int id;
     private String title;
@@ -26,10 +28,12 @@ public class Post {
         Post post = (Post) o;
         return this.id == post.id && this.link.equals(post.link);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, link);
     }
+
     @Override
     public String toString() {
         return "Post{"
