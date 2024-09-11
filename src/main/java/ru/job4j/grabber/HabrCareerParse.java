@@ -26,23 +26,6 @@ public class HabrCareerParse implements Parse {
         this.dateTimeParser = dateTimeParser;
     }
 
-    public static void main(String[] args) throws IOException {
-        for (int i = 0; i < COUNT; i++) {
-            String fullLink = "%s%s%s%s".formatted(SOURCE_LINK, PREFIX, i, SUFFIX);
-            Connection connection = Jsoup.connect(fullLink);
-            Document document = connection.get();
-            Elements rows = document.select(".vacancy-card__inner");
-            rows.forEach(row -> {
-                Element titleElement = row.select(".vacancy-card__title").first();
-                Element linkElement = titleElement.child(0);
-                Element dateElement = row.select(".vacancy-card__date").first();
-                Element date = dateElement.child(0);
-                String vacancyName = titleElement.text();
-                String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
-                System.out.printf("%s %s%n %s", vacancyName, link, date.attr("dateTime"));
-            });
-        }
-    }
     private String retrieveDescription(String link) {
         Connection connection = Jsoup.connect(link);
         Document document = null;

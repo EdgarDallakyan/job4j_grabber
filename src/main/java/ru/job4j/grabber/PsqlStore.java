@@ -89,22 +89,4 @@ public class PsqlStore implements Store {
             connection.close();
         }
     }
-    public static void main(String[] args) throws Exception {
-        HabrCareerDateTimeParser timeParser = new HabrCareerDateTimeParser();
-        HabrCareerParse parse = new HabrCareerParse(timeParser);
-        Properties properties = new Properties();
-        try (InputStream input = PsqlStore.class.getClassLoader().getResourceAsStream("rabbit.properties")) {
-            properties.load(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try (PsqlStore psqlStore = new PsqlStore(properties)) {
-            List<Post> result = parse.list("https://career.habr.com/vacancies?page=1&q=Java%20developer&type=all");
-            for (Post post : result) {
-                psqlStore.save(post);
-            }
-            System.out.println(psqlStore.findById(15));
-            System.out.println(psqlStore.getAll());
-        }
-    }
 }
